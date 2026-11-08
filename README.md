@@ -1,54 +1,101 @@
-# xterra_robots
+# MORPH — Mobility Optimization through Reinforcement and Primitive-based Hybrid Control for Wheeled Quadrupeds
 
-Robot description assets — URDFs, MuJoCo scenes, meshes, and per-robot
-configuration — for the xTerra robot family.
+## Introduction
 
-## How to use it
+MORPH is a comprehensive framework for wheeled quadruped locomotion that combines reinforcement learning with primitive-based hybrid control. This repository provides the model descriptions, configuration, and control infrastructure needed to develop and deploy advanced locomotion policies for the dhav-hy wheeled quadruped platform.
 
-This repository is not a CMake package. Tools locate models through
-`XTERRA_ROBOTS_PATH`.
+## Core Philosophy
 
-```bash
-export XTERRA_ROBOTS_PATH=/path/to/xterra_robots
-```
+The MORPH approach integrates:
+- **Reinforcement Learning** for adaptive policy optimization
+- **Primitive-based hybrids** for structured, interpretable behavior
+- **CPG (Central Pattern Generator)** networks for rhythmic movement generation
+- **Wheel-control coordination** for legged-wheel locomotion fusion
 
-Example paths:
+## Model Assets
 
-```text
-$XTERRA_ROBOTS_PATH/models/dhav1_description/urdf/dhav1_description.urdf
-$XTERRA_ROBOTS_PATH/models/dhav1_description/mujoco/scene.xml
-$XTERRA_ROBOTS_PATH/models/dhav1w_description/config/dhav1w.yaml
-```
+This repository contains description assets for the dhav-hy wheeled quadruped, including:
+- URDF and MuJoCo simulation models
+- Mesh files for collision and visual geometry
+- Per-robot configuration files (joint limits, actuator gains, inertial properties)
+- CPG network configurations and oscillator parameters
 
-## Available model directories
+## Available Models
 
-- `models/dhav1_description/` — 12-motor quadruped
-- `models/dhav1w_description/` — 16-motor quadruped + foot-wheels (branch `feat/dhav1w`)
-- `models/m2_metal_description/`
+- **dhav1_description**: 12-motor quadruped base model
+- **dhav1w_description**: 16-motor quadruped with foot-wheels
+- **m2_metal_description**: Metal-framed variant
 
-## Expected layout
+## Expected Layout
 
 Each robot directory follows this structure:
 
-```text
+```
 models/<robot_name>_description/
-├── urdf/                         # URDF and any RL-friendly variants
-├── mujoco/                       # MuJoCo scene + body XML
-├── meshes/                       # STL collision/visual meshes
-└── config/<robot_name>.yaml      # canonical robot config (optional)
+├── urdf/                # URDF and RL-friendly variants
+├── mujoco/              # MuJoCo scene and body XML
+├── meshes/              # STL collision/visual meshes
+└── config/<robot_name>.yaml  # Canonical robot configuration
 ```
 
-The `config/<robot_name>.yaml` file follows the schema in
-[`robot_config_template.yaml`](robot_config_template.yaml) at the repo root —
-a single source of truth for poses (sleep, stand), per-group joint limits,
-inertial properties, actuator gains, RL/MBC tuning, safety thresholds, and
-the hardware motor map. Keeping configuration alongside the description
-means a robot's URDF, meshes, and tuning travel as one bundle.
+The configuration file serves as a single source of truth for:
+- Poses (sleep, stand, rest positions)
+- Per-group joint limits
+- Inertial properties
+- Actuator gains and PWM maps
+- RL/MBC tuning parameters
+- Safety thresholds and hardware motor maps
 
-What's actually checked in today:
+## Getting Started
 
-- `dhav1_description`: `urdf/`, `mujoco/`, `meshes/`
-- `dhav1w_description`: `urdf/`, `mujoco/`, `meshes/`, and
-  `config/dhav1w.yaml` (canonical schema; calibrated sleep pose and
-  spawn-hold gains)
-- `m2_metal_description`: `urdf/`, `mujoco/`, `meshes/`
+Model paths are located through an environment variable pointing to the repository root. Configure your simulation or policy framework to load models from the appropriate directory.
+
+## Repository Structure
+
+```
+/dhav1w_cpg_rl/
+├── README.md              # This file
+├── robot/
+│   ├── __init__.py
+│   └── TECHNICAL_REPORT.md
+├── cpg/
+│   ├── hopf_oscillator.py
+│   ├── coupled_cpg.py
+│   └── foot_trajectory.py
+├── kinematics/
+│   └── inverse_kinematics.py
+├── wheel_control/
+│   ├── wheel_controller.py
+│   ├── slip_estimator.py
+│   └── wheel_constraints.py
+├── environment/
+│   ├── dhav1w_env.py
+│   ├── terrain_generator.py
+│   ├── domain_randomization.py
+│   └── reward.py
+├── controllers/
+│   ├── baseline_controller.py
+│   ├── cpg_rl_controller.py
+│   ├── wheel_rl_controller.py
+│   └── combined_controller.py
+├── training/
+│   ├── train_ppo.py
+│   ├── evaluate_policy.py
+│   ├── curriculum.py
+│   └── main_train.py
+├── analysis/
+│   └── plot_results.py
+├── configs/
+├── results/
+│   ├── models/
+│   └── plots/
+└── videos/
+```
+
+## Citation
+
+If you use MORPH in your research, please cite the relevant papers and acknowledge the dhav-hy wheeled quadruped asset from the robotics company.
+
+## License
+
+MIT License — free for academic and research use.
