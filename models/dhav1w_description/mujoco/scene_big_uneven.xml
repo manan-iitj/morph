@@ -1,0 +1,47 @@
+<mujoco model="Dhav1w scene">
+    <include file="dhav1w.xml"/>
+    <statistic center="0 0 1" extent="10"/>
+    
+    <visual>
+        <headlight diffuse="0.7 0.7 0.7" ambient="0.4 0.4 0.4" specular="0 0 0"/>
+        <map znear="0.01" zfar="100" shadowscale="0.5" fogstart="10" fogend="30"/>
+        <rgba haze="0.15 0.25 0.35 1"/>
+    </visual>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1="0.4 0.6 0.8" rgb2="0 0 0" width="512" height="307"/>
+        
+        <texture name="tex_grid" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512" mark="edge" markrgb=".8 .8 .8"/>
+        
+        <material name="mat_grid" texture="tex_grid" texrepeat="40 20" reflectance="0.2"/>
+        
+        <hfield name="terrain_hf" file="terrain_big_world.png" size="20.0 10.0 2.0 0.1"/>
+    </asset>
+
+    <worldbody>
+        <light pos="0 0 10" dir="0 0 -1" directional="true"/>
+        
+        <geom name="floor" type="hfield" hfield="terrain_hf" material="mat_grid" pos="0 0 0"/>
+
+        <body pos="-19.0 -8.0 1">
+            <site name="TYPE_FLAT" size="0.1" rgba="0 1 0 1"/>
+        </body>
+        
+        <body pos="-19.0 -4.0 1">
+            <site name="TYPE_ROUGH" size="0.1" rgba="0 1 0 1"/>
+        </body>
+        
+        <body pos="-19.0 0.0 1">
+            <site name="TYPE_STAIRS" size="0.1" rgba="0 1 0 1"/>
+        </body>
+        
+        <body pos="-19.0 4.0 1">
+            <site name="TYPE_SLOPES" size="0.1" rgba="0 1 0 1"/>
+        </body>
+        
+        <body pos="-19.0 8.0 1">
+            <site name="TYPE_GAPS" size="0.1" rgba="0 1 0 1"/>
+        </body>
+
+    </worldbody>
+</mujoco>

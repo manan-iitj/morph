@@ -1,0 +1,30 @@
+<mujoco model="stairs_terrain">
+    <option timestep="0.002" gravity="0 0 -9.81"/>
+    
+    <asset>
+        <material name="ground" rgba="0.8 0.8 0.8 1"/>
+        <material name="stair" rgba="0.6 0.4 0.2 1"/>
+        <material name="obstacle" rgba="0.5 0.5 0.5 1"/>
+        <material name="ramp" rgba="0.7 0.7 0.3 1"/>
+        <material name="hazard" rgba="0.8 0.2 0.2 1"/>
+    </asset>
+
+    <worldbody>
+        <!-- Ground plane -->
+        <geom name="ground" type="plane" size="50 50 0.1" pos="0 0 0" material="ground"/>
+        
+            <geom name="stair_0_riser" type="box" size="0.02 2.0 0.1" pos="1.075 0.0 0.1" material="stair"/>
+    <geom name="stair_0_tread" type="box" size="0.075 2.0 0.01" pos="1.075 0.0 0.19" material="stair"/>
+    <geom name="stair_1_riser" type="box" size="0.02 2.0 0.1" pos="1.2249999999999999 0.0 0.30000000000000004" material="stair"/>
+    <geom name="stair_1_tread" type="box" size="0.075 2.0 0.01" pos="1.2249999999999999 0.0 0.39" material="stair"/>
+    <geom name="stair_2_riser" type="box" size="0.02 2.0 0.1" pos="1.3749999999999998 0.0 0.5" material="stair"/>
+    <geom name="stair_2_tread" type="box" size="0.075 2.0 0.01" pos="1.3749999999999998 0.0 0.5900000000000001" material="stair"/>
+    <geom name="stair_3_riser" type="box" size="0.02 2.0 0.1" pos="1.5249999999999997 0.0 0.7000000000000001" material="stair"/>
+    <geom name="stair_3_tread" type="box" size="0.075 2.0 0.01" pos="1.5249999999999997 0.0 0.79" material="stair"/>
+    <geom name="stair_4_riser" type="box" size="0.02 2.0 0.1" pos="1.6749999999999996 0.0 0.9" material="stair"/>
+    <geom name="stair_4_tread" type="box" size="0.075 2.0 0.01" pos="1.6749999999999996 0.0 0.99" material="stair"/>
+    <geom name="stair_5_riser" type="box" size="0.02 2.0 0.1" pos="1.8249999999999995 0.0 1.1" material="stair"/>
+    <geom name="stair_5_tread" type="box" size="0.075 2.0 0.01" pos="1.8249999999999995 0.0 1.19" material="stair"/>
+
+    </worldbody>
+</mujoco>

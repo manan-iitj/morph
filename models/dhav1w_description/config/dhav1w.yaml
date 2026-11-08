@@ -1,0 +1,210 @@
+# DHAV 1.3 wheeled.  Copied from config/dhav1w.yaml (same kinematics and
+# meshes) with names/paths retargeted and the mass properties refreshed from
+# the DHAV 1.3 CAD export.  Poses, gains, limits and the `inertial:` lumped
+# model below are INHERITED FROM dhav1w AND HAVE NOT BEEN RE-TUNED for the new
+# mass set or the smaller native wheel - see ../NOTES.md before relying on them.
+robot_name: "dhav1w"
+morphology: "quadruped_wheeled"
+num_joints: 16
+num_contacts: 4
+joints_per_leg: 4
+
+urdf_path: "models/dhav1w_description/urdf/dhav1w_description.urdf"
+mujoco_xml_path: "models/dhav1w_description/mujoco/dhav1w.xml"
+
+joints:
+  # Canonical _joint suffix matching urdf/dhav1w_description.urdf.  Note the
+  # raw CAD export names two of these joints "*_thigh_link"; that is corrected
+  # to "*_thigh_joint" here and in the URDF.
+  names:
+    - FL_hip_joint
+    - FL_thigh_joint
+    - FL_calf_joint
+    - FL_wheel_joint
+    - FR_hip_joint
+    - FR_thigh_joint
+    - FR_calf_joint
+    - FR_wheel_joint
+    - RL_hip_joint
+    - RL_thigh_joint
+    - RL_calf_joint
+    - RL_wheel_joint
+    - RR_hip_joint
+    - RR_thigh_joint
+    - RR_calf_joint
+    - RR_wheel_joint
+
+  contact_frames:                                   # link names as in the URDF
+    - FL_wheel
+    - FR_wheel
+    - RL_wheel
+    - RR_wheel
+
+  limb_joints:
+    FL: [0, 1, 2, 3]
+    FR: [4, 5, 6, 7]
+    RL: [8, 9, 10, 11]
+    RR: [12, 13, 14, 15]
+
+  remap_indices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+limits:
+  # per-group: [hip, thigh, calf, wheel]. Wheel position is unconstrained
+  # (free-spinning) — the limit applies only at the safety integrator.
+  #
+  # CORRECTED vs dhav1w: that file carried calf limits [1.79, 7.50], which are
+  # in the opposite sign convention to the URDF/MuJoCo ([-2.80, -0.212]) and
+  # which its own sleep pose (calf = -2.630) violated. Position limits here now
+  # match urdf/dhav1w_description.urdf and mujoco/dhav1w.xml exactly.
+  position_lower: [-0.8378, -1.7169, -2.800, -3.1416]   # rad
+  position_upper: [ 0.8378,  2.5758, -0.212,  3.1416]
+  # effort_max is the ACTUATOR RATING and now matches the URDF/MJCF exactly.
+  # dhav1w previously carried [23.7, 23.7, 45.4, 14.0], which are a
+  # commercially available robot's figures, not this one's — they never
+  # described DHAV hardware and must not be scaled or reasoned from.
+  effort_max:     [40.0, 40.0, 80.0, 14.0]          # Nm
+  #
+  # velocity_max is NOT TRUSTWORTHY. dhav1w carried [21.0, 21.0, 21.0, 60.0],
+  # which come from the same borrowed spec as the old effort figures. Every
+  # other velocity source in this repo is also suspect: the old URDF used a
+  # flat 8 rad/s on all four joints including the wheel, and the DHAV 1.3 CAD
+  # export declares 10 rad/s, which is faster than before and therefore
+  # impossible (same motor, more reduction). The URDF currently carries
+  # 6.8 rad/s = 8 / k purely to keep the k relationship self-consistent.
+  # What IS certain: whatever the true no-load joint speed was, the new
+  # actuator's is 1/k = 0.85 x it. See ../NOTES.md (J).
+  # TODO: replace the three LEG figures with the measured motor speed /
+  # reduction. The WHEEL figure is settled: 73 rad/s is the actuator's
+  # real max speed (operator, 2026-08-28) = 5.61 m/s at r = 0.0769 m.
+  # It replaces both the borrowed 60 and the incorrectly k-scaled 5.
+  velocity_max:   [17.85, 17.85, 17.85, 73.0]       # rad/s  <- legs placeholder; wheel confirmed
+
+inertial:
+  # !! UNVERIFIED - LIKELY FROM A DIFFERENT ROBOT !!
+  # The old effort_max figures in this file turned out to be a commercially
+  # available robot's published specs rather than DHAV's. This block appears
+  # to come from the same source: none of it agrees with the URDF.
+  #   inertia      [0.07, 0.26, 0.242] vs the model's actual whole-robot
+  #                [0.674, 1.235, 1.238] kg m^2 about the CoM at the stand
+  #                pose - off by 5x to 10x.
+  #   hip_offsets  [+-0.19, +-0.11] vs the URDF's actual [+-0.2235, +-0.0535].
+  # Nothing here was overwritten, because a lumped SRB model is a controller
+  # identification artifact and may intentionally differ from the URDF - but
+  # do not trust these until someone confirms them.
+  # For reference the real mass set is 20.075 kg total (base 6.621 + 4 x
+  # [hip 0.830 + thigh 1.382 + calf 0.639 + wheel 0.513]); legs + wheels
+  # alone are 13.454 kg.
+  total_mass: 13.45                                 # kg (legs + wheels)
+  inertia: [0.07, 0.0,  0.0,
+            0.0,  0.26, 0.0,
+            0.0,  0.0,  0.242]
+  hip_offsets:
+    - [0.19, 0.11, 0.0]                             # FL
+    - [0.19, -0.11, 0.0]                            # FR
+    - [-0.19, 0.11, 0.0]                            # RL
+    - [-0.19, -0.11, 0.0]                           # RR
+
+poses:
+  # standing_height 0.30 does not match the stand pose below: those joint
+  # angles put the base at 0.4343 m (the MJCF 'stand' keyframe). Unverified.
+  standing_height: 0.30                             # m
+
+  stand:
+    # Mirrors the dhav1 stand attitude with wheels held at 0 rad. Tune at
+    # bring-up; xterra_loco INIT_STATE for wheeled training must match.
+    q: [0.1, 0.65, -1.33, 0.0,
+       -0.1, 0.65, -1.33, 0.0,
+        0.1, 0.87, -1.33, 0.0,
+       -0.1, 0.87, -1.33, 0.0]
+    base_pos: [0.0, 0.0, 0.45]
+
+  sleep:
+    # Per-leg [HAA, HFE, KFE, WHEEL], operator-supplied 2026-08-28. Supersedes
+    # the previous [±0.581, 0.836, -2.630, 0.0] curl. The hips are NOT exactly
+    # bilateral (+0.383 left, -0.388 front-right, -0.386 rear-right) - these are
+    # measured values, left as given rather than symmetrised. Wheels unset (0).
+    # KFE sits exactly ON the -2.8 lower limit; see ../NOTES.md (G) for the
+    # thigh/calf primitive overlap that implies.
+    q: [ 0.383, 1.01, -2.8, 0.0,
+        -0.388, 1.01, -2.8, 0.0,
+         0.383, 1.01, -2.8, 0.0,
+        -0.386, 1.01, -2.8, 0.0]
+
+actuators:
+  # Gear reduction. DHAV 1.3 raised hip/thigh/calf output torque from 34 to
+  # 40 Nm on the same motor, i.e. reduction ratio x 1.176471. The ABSOLUTE
+  # ratios are not recorded anywhere in this repo — fill `ratio` in once
+  # known; everything below that depends on it is currently expressed as a
+  # scale factor from the dhav1w v0 values.
+  gearing:
+    ratio: null                                     # TODO: [hip, thigh, calf, wheel]
+    ratio_scale_vs_v0: [1.176471, 1.176471, 1.176471, 1.0]
+    # Reflected rotor inertia scales with ratio^2 = 1.384083; applied to the
+    # MuJoCo `armature` (0.01 -> 0.013841 on abduction/hip/knee). NOTE the
+    # 0.01 baseline is itself an unmeasured placeholder inherited from dhav1 —
+    # the SCALING is right, the absolute value still needs measuring.
+    armature_scale_vs_v0: [1.384083, 1.384083, 1.384083, 1.0]
+
+  # per-group: [hip, thigh, calf, wheel]. Wheel kp=0 (velocity-mode);
+  # wheel kd=0.5 to provide damping in the absence of a position target.
+  stiffness: [40.0, 40.0, 40.0,  0.0]               # Nm/rad
+  damping:   [ 1.0,  1.0,  1.0,  0.5]               # Nm·s/rad
+
+  sleep_kp: [4.0, 4.0, 4.0, 0.0]
+  sleep_kd: [1.0, 1.0, 1.0, 0.5]
+  stand_kp: [40.0, 40.0, 40.0,  0.0]
+  stand_kd: [ 1.0,  1.0,  1.0,  0.5]
+
+# ─────────────────────────────────────────────────────────────────────
+# Sections below are stubs that mirror the schema. xterra_sim doesn't
+# read them; controller / loco / hw_interfaces own them once Phase 3
+# migrates them off their per-package YAMLs.
+# ─────────────────────────────────────────────────────────────────────
+
+rl:
+  model_filepath: "policy.onnx"
+  inference_rate: 50
+
+safety:
+  # !! max_torque 25.0 is BELOW the 40 Nm hip/thigh actuator rating and is 31%
+  # of the 80 Nm knee, so this clamp would bite during normal operation.
+  # max_joint_velocity 60.0 likewise does not match limits.velocity_max.
+  # Both inherited unverified - see ../NOTES.md (J) and (K).
+  roll_limit: 1.5
+  pitch_limit: 1.5
+  max_joint_velocity: 60.0
+  max_torque: 25.0
+  comm_timeout_ms: 200
+  max_faulted_motors: 2
+
+estimator:
+  gyro_noise: 0.01
+  accel_noise: 0.1
+  gyro_bias_noise: 0.001
+  accel_bias_noise: 0.01
+  foot_process_noise: 0.01
+  contact_force_threshold: 50.0
+  contact_probability_threshold: 0.5
+
+hardware:
+  motor_map:
+    FL_hip:    [1, 1]
+    FL_thigh:  [1, 2]
+    FL_calf:   [1, 3]
+    FL_wheel:  [1, 4]
+    FR_hip:    [2, 1]
+    FR_thigh:  [2, 2]
+    FR_calf:   [2, 3]
+    FR_wheel:  [2, 4]
+    RL_hip:    [3, 1]
+    RL_thigh:  [3, 2]
+    RL_calf:   [3, 3]
+    RL_wheel:  [3, 4]
+    RR_hip:    [4, 1]
+    RR_thigh:  [4, 2]
+    RR_calf:   [4, 3]
+    RR_wheel:  [4, 4]
+  motor_temp_warn: 65.0
+  motor_temp_fault: 75.0
+  imu_frame: "base"                                 # root link name in the URDF/MJCF
+  imu_rate: 500

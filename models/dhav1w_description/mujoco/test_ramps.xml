@@ -1,0 +1,23 @@
+<mujoco model="ramps_terrain">
+    <option timestep="0.002" gravity="0 0 -9.81"/>
+    
+    <asset>
+        <material name="ground" rgba="0.8 0.8 0.8 1"/>
+        <material name="stair" rgba="0.6 0.4 0.2 1"/>
+        <material name="obstacle" rgba="0.5 0.5 0.5 1"/>
+        <material name="ramp" rgba="0.7 0.7 0.3 1"/>
+        <material name="hazard" rgba="0.8 0.2 0.2 1"/>
+    </asset>
+
+    <worldbody>
+        <!-- Ground plane -->
+        <geom name="ground" type="plane" size="50 50 0.1" pos="0 0 0" material="ground"/>
+        
+            <geom name="ramp_0" type="box" size="2.5000 2.0000 0.05" pos="3.376 0.0 0.778" axisangle="0 1 0 -0.3164" material="ramp"/>
+    <geom name="ramp_1" type="box" size="2.5000 2.0000 0.05" pos="8.236 0.0 1.836" axisangle="0 1 0 -0.1122" material="ramp"/>
+    <geom name="ramp_2" type="box" size="2.5000 2.0000 0.05" pos="13.085 0.0 2.928" axisangle="0 1 0 -0.3310" material="ramp"/>
+    <geom name="ramp_3" type="box" size="2.5000 2.0000 0.05" pos="17.911 0.0 4.174" axisangle="0 1 0 -0.1743" material="ramp"/>
+    <geom name="ramp_4" type="box" size="2.5000 2.0000 0.05" pos="22.842 0.0 5.002" axisangle="0 1 0 -0.1583" material="ramp"/>
+
+    </worldbody>
+</mujoco>

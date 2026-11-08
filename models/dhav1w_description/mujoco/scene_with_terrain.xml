@@ -1,0 +1,15 @@
+<!-- Terrain: stairs, difficulty=medium -->
+<!-- Staircase terrain -->
+    <geom name="stair_0_tread" type="box" size="0.1263 2.0000 0.0200" pos="1.126 0.0 0.0100" material="wood"/>
+    <geom name="stair_0_riser" type="box" size="0.0200 2.0000 0.0624" pos="1.126 0.0 0.0624" material="wood"/>
+    <geom name="stair_1_tread" type="box" size="0.1362 2.0000 0.0200" pos="1.389 0.0 0.1348" material="wood"/>
+    <geom name="stair_1_riser" type="box" size="0.0200 2.0000 0.0496" pos="1.389 0.0 0.1744" material="wood"/>
+    <geom name="stair_2_tread" type="box" size="0.1588 2.0000 0.0200" pos="1.684 0.0 0.2340" material="wood"/>
+    <geom name="stair_2_riser" type="box" size="0.0200 2.0000 0.0658" pos="1.684 0.0 0.2898" material="wood"/>
+    <geom name="stair_3_tread" type="box" size="0.1293 2.0000 0.0200" pos="1.972 0.0 0.3656" material="wood"/>
+    <geom name="stair_3_riser" type="box" size="0.0200 2.0000 0.0712" pos="1.972 0.0 0.4268" material="wood"/>
+    <geom name="stair_4_tread" type="box" size="0.1265 2.0000 0.0200" pos="2.228 0.0 0.5080" material="wood"/>
+    <geom name="stair_4_riser" type="box" size="0.0200 2.0000 0.0548" pos="2.228 0.0 0.5528" material="wood"/>
+    <geom name="stair_5_tread" type="box" size="0.1503 2.0000 0.0200" pos="2.504 0.0 0.6176" material="wood"/>
+    <geom name="stair_5_riser" type="box" size="0.0200 2.0000 0.0477" pos="2.504 0.0 0.6552" material="wood"/>
+<!-- End terrain -->

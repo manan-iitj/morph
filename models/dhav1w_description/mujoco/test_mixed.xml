@@ -1,0 +1,33 @@
+<mujoco model="mixed_terrain">
+    <option timestep="0.002" gravity="0 0 -9.81"/>
+    
+    <asset>
+        <material name="ground" rgba="0.8 0.8 0.8 1"/>
+        <material name="stair" rgba="0.6 0.4 0.2 1"/>
+        <material name="obstacle" rgba="0.5 0.5 0.5 1"/>
+        <material name="ramp" rgba="0.7 0.7 0.3 1"/>
+        <material name="hazard" rgba="0.8 0.2 0.2 1"/>
+    </asset>
+
+    <worldbody>
+        <!-- Ground plane -->
+        <geom name="ground" type="plane" size="50 50 0.1" pos="0 0 0" material="ground"/>
+        
+            <geom name="mixed_bump_0" type="box" size="0.11989938631477774 0.08670139803318273 0.011599697090570255" pos="6.49816047538945 1.3521429192297485 0.011599697090570255" material="ground"/>
+    <geom name="mixed_obs_0" type="box" size="0.16161761457749352 0.13511150117432089 0.09580725777960455" pos="9.623978081344811 -1.3257491634954017 0.09580725777960455" material="obstacle"/>
+    <geom name="mixed_obs_1" type="box" size="0.15824426408004216 0.09623391106782761 0.04318249672071006" pos="9.08233797718321 1.409729556485983 0.04318249672071006" material="obstacle"/>
+    <geom name="mixed_obs_2" type="box" size="0.12747564316322377 0.11819450186421157 0.054122914019804194" pos="9.733618039413734 -0.5872732711213868 0.054122914019804194" material="obstacle"/>
+    <geom name="mixed_obs_3" type="box" size="0.10421446485352182 0.11163618432936917 0.07060699842170359" pos="11.447411578889518 -1.0815184180438746 0.07060699842170359" material="obstacle"/>
+    <geom name="mixed_obs_4" type="box" size="0.12642344384136114 0.13424145688620423 0.029645041271999774" pos="12.140703845572055 -0.9009786535249208 0.029645041271999774" material="obstacle"/>
+    <geom name="mixed_stair_0_riser" type="box" size="0.02 2.0 0.025" pos="13.065 0.0 0.025" material="stair"/>
+    <geom name="mixed_stair_0_tread" type="box" size="0.065 2.0 0.01" pos="13.065 0.0 0.04" material="stair"/>
+    <geom name="mixed_stair_1_riser" type="box" size="0.02 2.0 0.025" pos="13.195 0.0 0.07500000000000001" material="stair"/>
+    <geom name="mixed_stair_1_tread" type="box" size="0.065 2.0 0.01" pos="13.195 0.0 0.09000000000000001" material="stair"/>
+    <geom name="mixed_stair_2_riser" type="box" size="0.02 2.0 0.025" pos="13.325000000000001 0.0 0.125" material="stair"/>
+    <geom name="mixed_stair_2_tread" type="box" size="0.065 2.0 0.01" pos="13.325000000000001 0.0 0.14" material="stair"/>
+    <geom name="mixed_stair_3_riser" type="box" size="0.02 2.0 0.025" pos="13.455000000000002 0.0 0.17500000000000002" material="stair"/>
+    <geom name="mixed_stair_3_tread" type="box" size="0.065 2.0 0.01" pos="13.455000000000002 0.0 0.19" material="stair"/>
+    <geom name="mixed_ramp" type="box" size="2.5000 2.0000 0.05" pos="16.982 0.0 0.634" axisangle="0 1 0 -0.1745" material="ramp"/>
+
+    </worldbody>
+</mujoco>

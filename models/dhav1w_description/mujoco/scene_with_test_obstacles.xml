@@ -1,0 +1,83 @@
+<mujoco model="Dhav1w scene">
+  <include file="dhav1w.xml"/>
+
+  <statistic center="0 0 0.1" extent="0.8"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="-130" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+
+    <texture type="2d" name="woodtex" builtin="flat" mark="edge" rgb1="0.7 0.5 0.3" rgb2="0.6 0.4 0.2"
+      width="300" height="300"/>
+    <material name="wood" texture="woodtex" texuniform="true" texrepeat="5 5" reflectance="0.1"/>
+  <material name="ground" rgba="0.8 0.8 0.8 1"/>
+        <material name="stair" rgba="0.6 0.4 0.2 1"/>
+        <material name="obstacle" rgba="0.5 0.5 0.5 1"/>
+        <material name="ramp" rgba="0.7 0.7 0.3 1"/>
+        <material name="hazard" rgba="0.8 0.2 0.2 1"/>
+        </asset>
+
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+
+    <!-- <geom name="step1" size="1 1 0.05" type="box" material="wood" pos ="2 0 0.0"/> -->
+
+    <geom name="obs_0" type="box" size="0.10618101782710439 0.19260714596148745 0.11649924272642564" pos="9.381218778758512 -1.375925438230254 0.11649924272642564" material="obstacle"/>
+<geom name="obs_1" type="box" size="0.0733991780504304 0.058712541825229926 0.1332720182218669" pos="9.415610164404923 0.832290311184182 0.1332720182218669" material="obstacle"/>
+<geom name="obs_2" type="box" size="0.05308767414437037 0.19548647782429918 0.1290553301000527" pos="3.972747549495866 -1.2727001311715975 0.1290553301000527" material="obstacle"/>
+<geom name="obs_3" type="box" size="0.07751067647801507 0.09563633644393067 0.09059455395402974" pos="7.047230260989621 -0.8350834392078323 0.09059455395402974" material="obstacle"/>
+<geom name="obs_4" type="box" size="0.14177793420835694 0.07092407909780628 0.06151808106690227" pos="6.129065806111684 -0.17572006313185629 0.06151808106690227" material="obstacle"/>
+<geom name="obs_5" type="box" size="0.16777639420895207 0.07995106732375397 0.08927930480170146" pos="9.293803964068594 -1.814198349120009 0.08927930480170146" material="obstacle"/>
+<geom name="obs_6" type="box" size="0.14113172778521577 0.07557861855309374 0.03313144912315994" pos="14.284397521546666 1.8625281322982374 0.03313144912315994" material="obstacle"/>
+<geom name="obs_7" type="box" size="0.1712596022174692 0.09569206537600561 0.037209014250797985" pos="10.579262371170197 -0.2393900250415948 0.037209014250797985" material="obstacle"/>
+<geom name="obs_8" type="box" size="0.06830573522671683 0.12427653651669054 0.0292985651394023" pos="13.73048562910295 -0.9648800735999323 0.0292985651394023" material="obstacle"/>
+<geom name="obs_9" type="box" size="0.14937834265309732 0.09675666141341165 0.09000850264722635" pos="8.653943910805914 -1.2605821778978918 0.09000850264722635" material="obstacle"/>
+  <!-- Terrain from step_controller -->
+    <!-- <geom name="step2_1" type="box" size="0.4 0.6 0.05" pos="6.2 0 0.05" material="wood"/>
+    <geom name="step2_2" type="box" size="0.3 0.6 0.1" pos="5.8 0 0.1" material="wood"/>
+    <geom name="step2_3" type="box" size="0.2 0.6 0.15" pos="5.5 0 0.15" material="wood"/>
+    <geom name="step2_4" type="box" size="0.2 0.6 0.22" pos="5.1 0 0.22" material="wood"/>
+    
+    <geom name="step2_5" type="box" size="0.4 0.6 0.3" pos="4.5 0 0.3" material="wood"/>
+    
+    <geom name="step2_6" type="box" size="0.2 0.6 0.22" pos="3.9 0 0.22" material="wood"/>
+    <geom name="step2_7" type="box" size="0.2 0.6 0.15" pos="3.5 0 0.15" material="wood"/>
+    <geom name="step2_8" type="box" size="0.3 0.6 0.1" pos="3.2 0 0.1" material="wood"/>
+    <geom name="step2_9" type="box" size="0.4 0.6 0.05" pos="2.8 0 0.05" material="wood"/> -->
+
+    <!-- Removed for terrain -->
+  <!-- <geom name="step3_1" type="box" size="0.1 2.4 0.02" pos="2 2 0.02" material="wood"/>
+  <geom name="step3_2" type="box" size="0.1 2.4 0.04" pos="2.1 2 0.04" material="wood"/>
+  <geom name="step3_3" type="box" size="0.1 2.4 0.06" pos="2.3 2 0.06" material="wood"/>
+  <geom name="step3_4" type="box" size="0.1 2.4 0.08" pos="2.4 2 0.08" material="wood"/>
+  <geom name="step3_5" type="box" size="0.1 2.4 0.1" pos="2.5 2 0.1" material="wood"/>
+  <geom name="step3_6" type="box" size="0.1 2.4 0.12" pos="2.6 2 0.12" material="wood"/>
+  <geom name="step3_7" type="box" size="0.1 2.4 0.14" pos="2.7 2 0.14" material="wood"/>
+  <geom name="step3_8" type="box" size="0.1 2.4 0.16" pos="2.9 2 0.16" material="wood"/>
+  <geom name="step3_9" type="box" size="0.1 2.4 0.18" pos="3 2 0.18" material="wood"/>
+  <geom name="step3_10" type="box" size="0.1 2.4 0.19" pos="3.1 2 0.19" material="wood"/>
+  <geom name="step3_11" type="box" size="0.1 2.4 0.2" pos="3.2 2 0.2" material="wood"/>
+  <geom name="step3_12" type="box" size="0.1 2.4 0.21" pos="3.3 2 0.21" material="wood"/>
+  <geom name="step3_13" type="box" size="0.1 2.4 0.22" pos="3.4 2 0.22" material="wood"/>
+  <geom name="step3_14" type="box" size="0.1 2.4 0.24" pos="3.6 2 0.24" material="wood"/>
+  
+  <geom name="step3_15" type="box" size="0.1 2.4 0.25" pos="3.7 2 0.25" material="wood"/>
+
+  <geom name="step3_16" type="box" size="0.1 2.4 0.22" pos="3.8 2 0.22" material="wood"/>
+  <geom name="step3_17" type="box" size="0.1 2.4 0.19" pos="3.9 2 0.19" material="wood"/>
+  <geom name="step3_18" type="box" size="0.1 2.4 0.16" pos="4 2 0.16" material="wood"/>
+  <geom name="step3_19" type="box" size="0.1 2.4 0.13" pos="4.1 2 0.13" material="wood"/>
+  <geom name="step3_20" type="box" size="0.1 2.4 0.10" pos="4.2 2 0.10" material="wood"/>
+  <geom name="step3_21" type="box" size="0.1 2.4 0.07" pos="4.3 2 0.07" material="wood"/>
+  <geom name="step3_22" type="box" size="0.1 2.4 0.04" pos="4.4 2 0.04" material="wood"/> -->
+  </worldbody>
+</mujoco>

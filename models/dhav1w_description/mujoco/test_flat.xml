@@ -1,0 +1,18 @@
+<mujoco model="flat_terrain">
+    <option timestep="0.002" gravity="0 0 -9.81"/>
+    
+    <asset>
+        <material name="ground" rgba="0.8 0.8 0.8 1"/>
+        <material name="stair" rgba="0.6 0.4 0.2 1"/>
+        <material name="obstacle" rgba="0.5 0.5 0.5 1"/>
+        <material name="ramp" rgba="0.7 0.7 0.3 1"/>
+        <material name="hazard" rgba="0.8 0.2 0.2 1"/>
+    </asset>
+
+    <worldbody>
+        <!-- Ground plane -->
+        <geom name="ground" type="plane" size="50 50 0.1" pos="0 0 0" material="ground"/>
+        
+        
+    </worldbody>
+</mujoco>

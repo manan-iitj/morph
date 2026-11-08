@@ -1,0 +1,49 @@
+<mujoco model="dhav1w terrain scene">
+  <include file="dhav1w.xml"/>
+
+  <statistic center="4.671 0 1.750" extent="9.34"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="-130" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <texture type="2d" name="woodtex" builtin="flat" mark="edge" rgb1="0.7 0.5 0.3" rgb2="0.6 0.4 0.2" width="300" height="300"/>
+    <material name="wood" texture="woodtex" texuniform="true" texrepeat="5 5" reflectance="0.1"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+
+    <!-- Ascending stairs: 10 steps, 35 cm rise, going 0.4171 m -> 40 deg slope -->
+    <geom name="step_up_1" type="box" size="0.2086 2.0000 0.1750" pos="0.7086 0 0.1750" material="wood"/>
+    <geom name="step_up_2" type="box" size="0.2086 2.0000 0.3500" pos="1.1257 0 0.3500" material="wood"/>
+    <geom name="step_up_3" type="box" size="0.2086 2.0000 0.5250" pos="1.5428 0 0.5250" material="wood"/>
+    <geom name="step_up_4" type="box" size="0.2086 2.0000 0.7000" pos="1.9599 0 0.7000" material="wood"/>
+    <geom name="step_up_5" type="box" size="0.2086 2.0000 0.8750" pos="2.3770 0 0.8750" material="wood"/>
+    <geom name="step_up_6" type="box" size="0.2086 2.0000 1.0500" pos="2.7941 0 1.0500" material="wood"/>
+    <geom name="step_up_7" type="box" size="0.2086 2.0000 1.2250" pos="3.2112 0 1.2250" material="wood"/>
+    <geom name="step_up_8" type="box" size="0.2086 2.0000 1.4000" pos="3.6284 0 1.4000" material="wood"/>
+    <geom name="step_up_9" type="box" size="0.2086 2.0000 1.5750" pos="4.0455 0 1.5750" material="wood"/>
+    <geom name="step_up_10" type="box" size="0.2086 2.0000 1.7500" pos="4.4626 0 1.7500" material="wood"/>
+    <!-- Plateau on top, height = 3.500 m -->
+    <geom name="step_plateau" type="box" size="0.2500 2.0000 1.7500" pos="4.9211 0 1.7500" material="wood"/>
+    <!-- Descending stairs: 10 steps -->
+    <geom name="step_down_1" type="box" size="0.2086 2.0000 1.7500" pos="5.3797 0 1.7500" material="wood"/>
+    <geom name="step_down_2" type="box" size="0.2086 2.0000 1.5750" pos="5.7968 0 1.5750" material="wood"/>
+    <geom name="step_down_3" type="box" size="0.2086 2.0000 1.4000" pos="6.2139 0 1.4000" material="wood"/>
+    <geom name="step_down_4" type="box" size="0.2086 2.0000 1.2250" pos="6.6310 0 1.2250" material="wood"/>
+    <geom name="step_down_5" type="box" size="0.2086 2.0000 1.0500" pos="7.0481 0 1.0500" material="wood"/>
+    <geom name="step_down_6" type="box" size="0.2086 2.0000 0.8750" pos="7.4653 0 0.8750" material="wood"/>
+    <geom name="step_down_7" type="box" size="0.2086 2.0000 0.7000" pos="7.8824 0 0.7000" material="wood"/>
+    <geom name="step_down_8" type="box" size="0.2086 2.0000 0.5250" pos="8.2995 0 0.5250" material="wood"/>
+    <geom name="step_down_9" type="box" size="0.2086 2.0000 0.3500" pos="8.7166 0 0.3500" material="wood"/>
+    <geom name="step_down_10" type="box" size="0.2086 2.0000 0.1750" pos="9.1337 0 0.1750" material="wood"/>
+  </worldbody>
+</mujoco>

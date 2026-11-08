@@ -1,0 +1,28 @@
+<mujoco model="obstacles_terrain">
+    <option timestep="0.002" gravity="0 0 -9.81"/>
+    
+    <asset>
+        <material name="ground" rgba="0.8 0.8 0.8 1"/>
+        <material name="stair" rgba="0.6 0.4 0.2 1"/>
+        <material name="obstacle" rgba="0.5 0.5 0.5 1"/>
+        <material name="ramp" rgba="0.7 0.7 0.3 1"/>
+        <material name="hazard" rgba="0.8 0.2 0.2 1"/>
+    </asset>
+
+    <worldbody>
+        <!-- Ground plane -->
+        <geom name="ground" type="plane" size="50 50 0.1" pos="0 0 0" material="ground"/>
+        
+            <geom name="obs_0" type="box" size="0.10618101782710439 0.19260714596148745 0.11649924272642564" pos="9.381218778758512 -1.375925438230254 0.11649924272642564" material="obstacle"/>
+    <geom name="obs_1" type="box" size="0.0733991780504304 0.058712541825229926 0.1332720182218669" pos="9.415610164404923 0.832290311184182 0.1332720182218669" material="obstacle"/>
+    <geom name="obs_2" type="box" size="0.05308767414437037 0.19548647782429918 0.1290553301000527" pos="3.972747549495866 -1.2727001311715975 0.1290553301000527" material="obstacle"/>
+    <geom name="obs_3" type="box" size="0.07751067647801507 0.09563633644393067 0.09059455395402974" pos="7.047230260989621 -0.8350834392078323 0.09059455395402974" material="obstacle"/>
+    <geom name="obs_4" type="box" size="0.14177793420835694 0.07092407909780628 0.06151808106690227" pos="6.129065806111684 -0.17572006313185629 0.06151808106690227" material="obstacle"/>
+    <geom name="obs_5" type="box" size="0.16777639420895207 0.07995106732375397 0.08927930480170146" pos="9.293803964068594 -1.814198349120009 0.08927930480170146" material="obstacle"/>
+    <geom name="obs_6" type="box" size="0.14113172778521577 0.07557861855309374 0.03313144912315994" pos="14.284397521546666 1.8625281322982374 0.03313144912315994" material="obstacle"/>
+    <geom name="obs_7" type="box" size="0.1712596022174692 0.09569206537600561 0.037209014250797985" pos="10.579262371170197 -0.2393900250415948 0.037209014250797985" material="obstacle"/>
+    <geom name="obs_8" type="box" size="0.06830573522671683 0.12427653651669054 0.0292985651394023" pos="13.73048562910295 -0.9648800735999323 0.0292985651394023" material="obstacle"/>
+    <geom name="obs_9" type="box" size="0.14937834265309732 0.09675666141341165 0.09000850264722635" pos="8.653943910805914 -1.2605821778978918 0.09000850264722635" material="obstacle"/>
+
+    </worldbody>
+</mujoco>
